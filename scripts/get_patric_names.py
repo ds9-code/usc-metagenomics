@@ -6,7 +6,7 @@ import os
 import re
 
 # Set up source directory and target file
-patric_dir = "/project/cr_055_883/ds_189/patric/"
+source_dir = "/project/cr_055_883/ds_189/patric/"
 target_file =  "/project/cr_055_883/ds_189/patric/patric_list.txt"
 
 # For each file in the download directory, if it ends with .fna,
@@ -15,9 +15,9 @@ target_file =  "/project/cr_055_883/ds_189/patric/patric_list.txt"
 # It doesnt work for all the files, but we will extract the list and then fix issues
 
 with open(target_file, "w") as f:
-  for file in os.listdir(patric_dir):
+  for file in os.listdir(source_dir):
     if file.endswith(".fna"):
-       file_path = patric_dir + file
+       file_path = source_dir + file
        # print(file_path)
        fline = open(file_path).readline().rstrip()
        organism = str(re.findall(r'\[.*?\]', fline))
