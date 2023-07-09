@@ -4,8 +4,8 @@
 import os
 import re
 
-patric_dir = "/project/cr_055_883/dsreedhar/code/"
-target_file =  "/project/cr_055_883/dsreedhar/patric/patric_list.txt"
+patric_dir = "/project/cr_055_883/ds_189/code/"
+target_file =  "/project/cr_055_883/ds_189/patric/patric_list.txt"
 
 with open(target_file, "w") as f:
   for file in os.listdir(patric_dir):
