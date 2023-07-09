@@ -6,9 +6,9 @@ import gzip
 import os
 import re
 
-source_dir = "/project/cr_055_883/dsreedhar/ncbi-refseq/"
-#target_file =  "/project/cr_055_883/dsreedhar/ncbi-refseq/refseq_list.txt"
-target_file =  "/project/cr_055_883/dsreedhar/refseq_list.txt"
+source_dir = "/project/cr_055_883/ds_189/ncbi-refseq/"
+#target_file =  "/project/cr_055_883/ds_189/ncbi-refseq/refseq_list.txt"
+target_file =  "/project/cr_055_883/ds_189/refseq_list.txt"
 
 # We open each fna.gz file with SeqIO.
 # Each file has multiple records for the same bacteria
@@ -25,7 +25,7 @@ with open(target_file, "w") as f:            # Open target file for write
            for index, record in enumerate(SeqIO.parse(handle, "fasta")):      # read the records using SeqIO
               if (index == 0):                                                # get the first record's description
                  f.write(file + '|' + record.description + '\n')
-f.close()
+f.close()                                                # Close the target file after writing
 
 
 #from Bio import SeqIO
