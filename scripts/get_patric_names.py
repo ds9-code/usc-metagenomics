@@ -3,9 +3,9 @@
 from Bio import SeqIO
 import os
 
-source_dir = "/project/cr_055_883/dsreedhar/code/"
-source_file = "/project/cr_055_883/dsreedhar/patric/dedupe_genome_list"
-target_file =  "/project/cr_055_883/dsreedhar/patric/patric_list.txt"
+source_dir = "/project/cr_055_883/ds_189/patric/data/"
+source_file = "/project/cr_055_883/ds_189/patric/dedupe_genome_list"
+target_file =  "/project/cr_055_883/ds_189/patric/patric_list.txt"
 
 with open(target_file, "w") as f:            # Open target file for write
     with open(source_file, "rt") as file:
