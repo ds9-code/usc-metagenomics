@@ -1,34 +1,20 @@
-# Get the bacteria names rom the Patric genome dataset
+# Get the bacteria names rom the Patric dataset
 
-# Import necessary packages
-#from Bio import SeqIO
+from Bio import SeqIO
 import os
-import re
 
-# Set up source directory and target file
-source_dir = "/project/cr_055_883/ds_189/patric/"
-target_file =  "/project/cr_055_883/ds_189/patric/patric_list.txt"
+source_dir = "/project/cr_055_883/dsreedhar/code/"
+source_file = "/project/cr_055_883/dsreedhar/patric/dedupe_genome_list"
+target_file =  "/project/cr_055_883/dsreedhar/patric/patric_list.txt"
 
-# For each file in the download directory, if it ends with .fna,
-# open the file, read the first line and find the string in between the 
-# square brackets [] - most of the time, this is the bacteria name
-# It doesnt work for all the files, but we will extract the list and then fix issues
-
-with open(target_file, "w") as f:
-  for file in os.listdir(source_dir):
-    if file.endswith(".fna"):
-       file_path = source_dir + file
-       # print(file_path)
-       fline = open(file_path).readline().rstrip()
-       organism = str(re.findall(r'\[.*?\]', fline))
-       species = organism.split("|")[0]
-       f.write(file + ',' + species + '\n')
-f.close()
-
-# Fasta files do not have good annotation, so we cannot extract
-# the bacteria name information from the SeqIO record.
-
-#for seq_record in SeqIO.parse(file_path, "fasta"):
-    #print(seq_record.description)
-    #print(repr(seq_record.seq))
-    #print(len(seq_record))
+with open(target_file, "w") as f:            # Open target file for write
+    with open(source_file, "rt") as file:
+          for filename in file:
+              file_path = source_dir + filename.rstrip() + '.fna'         # construct the full file path with file name
+              with open(file_path, "rt") as handle:                                  # and then use gzip to unzip and open it
+                   for index, record in enumerate(SeqIO.parse(handle, "fasta")):      # read the records using SeqIO
+                       if (index == 0):                                                # get the first record's description
+                           f.write(filename.rstrip() + '|' + record.description + '\n')
+              handle.close()                                                  # Close the actual fna file after getting the bacteria name
+    file.close()                                                              # Close the source file after reading
+f.close()                                                                     # Close the target file after writing
